@@ -328,6 +328,11 @@ srs_error_t SrsGoApiRtcPublish::do_serve_http(ISrsHttpResponseWriter* w, ISrsHtt
     if ((prop = req->ensure_property_string("tid")) != NULL) {
         tid = prop->to_str();
     }
+    
+    string rparam;
+    if ((prop = req->ensure_property_string("param")) != NULL) {
+        rparam = prop->to_str();
+    }
 
     // Parse app and stream from streamurl.
     string app;
@@ -371,6 +376,8 @@ srs_error_t SrsGoApiRtcPublish::do_serve_http(ISrsHttpResponseWriter* w, ISrsHtt
 
     ruc.req_->app = app;
     ruc.req_->stream = stream_name;
+    ruc.req_->param = rparam;
+    
 
     // TODO: FIXME: Parse vhost.
     // discovery vhost, resolve the vhost from config
